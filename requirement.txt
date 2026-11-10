@@ -3,3 +3,5 @@ dotenv
 langchain
 langgraph
 langchain-azure-ai
+azure-identity
+azure-storage-blob
