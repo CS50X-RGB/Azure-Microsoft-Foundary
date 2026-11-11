@@ -32,3 +32,9 @@ gpt-realtime-> Speech to Speech solution
 
 #### In Adance Settings
 <img src="./adv_settings.png" />
+
+## TODO
+DB -> Vector DB
+aur embeddings generate karna hai
+argumentation mai embeddings generate karenge
+aur last mai llm ko ctx denge
