@@ -1,8 +1,8 @@
 import os
-from app.upload import upload_file
+from app.upload import upload_directory
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
-
+from pathlib import Path
 
 account_name = os.environ["AZURE_STORAGE_ACCOUNT"]
 
@@ -20,8 +20,8 @@ container_client = blob_service_client.get_container_client(
 )
 
 if __name__ == "__main__":
-    file_path = input()
+    file_path = Path('data/raw')
     
-    upload_file(file_path)
+    upload_directory(file_path)
     
     cred.close()
