@@ -5,3 +5,4 @@ langgraph
 langchain-azure-ai
 azure-identity
 azure-storage-blob
+langchain-openai

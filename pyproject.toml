@@ -3,13 +3,13 @@ name = "ai-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
+
 dependencies = [
-    "dotenv>=0.9.9",
-    "openai>=3.42.1",
-    "azure-identity",
-    "python-dotenv>=1.2.4",
     "langchain",
     "langgraph",
+    "langchain-openai==0.3.1",
+    "openai>=1.58.1,<2.0.0",
+    "python-dotenv",
     "azure-cognitiveservices-speech>=1.53.0",
 ]
