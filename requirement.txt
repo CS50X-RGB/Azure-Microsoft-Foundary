@@ -6,3 +6,7 @@ langchain-azure-ai
 azure-identity
 azure-storage-blob
 langchain-openai
+azure-storage-blob 
+pypdf
+langchain-text-splitters
+azure-search-documents

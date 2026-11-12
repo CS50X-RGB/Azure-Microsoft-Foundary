@@ -1,5 +1,6 @@
 import os
 from app.upload import upload_directory
+from app.extraction import extract_docs
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from pathlib import Path
@@ -21,7 +22,8 @@ container_client = blob_service_client.get_container_client(
 
 if __name__ == "__main__":
     file_path = Path('data/raw')
-    
     upload_directory(file_path)
+    
+    documents = extract_docs(container_client=container_client)
     
     cred.close()    
