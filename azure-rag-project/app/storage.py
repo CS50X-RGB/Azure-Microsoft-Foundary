@@ -4,6 +4,9 @@ from app.extraction import extract_docs
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from pathlib import Path
+from app.chunking import chunk_docs
+from app.embedder import generate_embedding
+from app.vector_store import store_chunks
 
 account_name = os.environ["AZURE_STORAGE_ACCOUNT"]
 
@@ -25,5 +28,7 @@ if __name__ == "__main__":
     upload_directory(file_path)
     
     documents = extract_docs(container_client=container_client)
-    
+    chunks = chunk_docs(documents=documents)
+    embedded_chunks = generate_embedding(chunks=chunks)
+    store_chunks(embedded_chunks)
     cred.close()    
