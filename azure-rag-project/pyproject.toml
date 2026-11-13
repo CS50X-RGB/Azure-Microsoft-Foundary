@@ -5,11 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    openai,
-    dotenv,
-    langchain,
-    langgraph,
-    langchain-azure-ai,
-    azure-identity,
-    azure-storage-blob
+    "openai",
+    "dotenv",
+    "langchain",
+    "langgraph",
+    "langchain-azure-ai",
+    "azure-identity",
+    "azure-storage-blob"
 ]

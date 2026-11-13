@@ -25,7 +25,7 @@ container_client = blob_service_client.get_container_client(
 
 if __name__ == "__main__":
     file_path = Path('data/raw')
-    upload_directory(file_path)
+    upload_directory(file_path,container_client=container_client)
     
     documents = extract_docs(container_client=container_client)
     chunks = chunk_docs(documents=documents)

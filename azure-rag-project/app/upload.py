@@ -1,7 +1,7 @@
-from app.storage import container_client
 from pathlib import Path
+from azure.storage.blob import ContainerClient
 
-def upload_file(file_path : Path):
+def upload_file(file_path : Path,container_client : ContainerClient):
     blob_name = f"raw/{file_path.name}"
     
     with file_path.open("rb") as file:
@@ -13,7 +13,7 @@ def upload_file(file_path : Path):
         
     print(f"Uploaded: {blob_name}")
     
-def upload_directory(dir : str):
+def upload_directory(dir : str,container_client : ContainerClient):
     
     dir_path = Path(dir)
     

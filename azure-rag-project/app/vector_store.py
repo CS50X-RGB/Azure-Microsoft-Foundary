@@ -17,8 +17,9 @@ from azure.search.documents import SearchClient
 load_dotenv()
 
 endpoint = os.getenv("AZURE_SEARCH_ENDPOINT")
-key = os.getenv("AZURE_SEARCH_API_KEY"),
+key = ''.join(os.getenv("AZURE_SEARCH_API_KEY"))
 index_name = os.getenv("AZURE_SEARCH_INDEX")
+
 
 cred = AzureKeyCredential(key=key)
 

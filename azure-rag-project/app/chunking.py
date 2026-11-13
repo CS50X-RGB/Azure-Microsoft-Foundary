@@ -14,7 +14,7 @@ def chunk_docs(documents : list[dict[str,str]]):
         
         for i,chunk in enumerate(text_chunks):
             chunks.append({
-                "id" : f'{doc['source']}_{i}',
+                "id" : f"{doc['source']}_{i}",
                 "text" : chunk,
                 "source" : doc['source']
             })
