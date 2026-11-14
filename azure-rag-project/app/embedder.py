@@ -11,7 +11,7 @@ def generate_embedding(chunks : list[dict]):
     
     response  = client.embeddings.create(
         model=os.getenv("AZURE_EMBEDDING_MODEL_NAME"),
-        inputs=text
+        input=text
     )
     
     for chunk,item in zip(chunks,response.data):

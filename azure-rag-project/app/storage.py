@@ -10,12 +10,12 @@ from app.vector_store import store_chunks
 
 account_name = os.environ["AZURE_STORAGE_ACCOUNT"]
 
-account_url = f"https://{account_name}.blob.core.windows.net"
+account_url = f"https://{account_name}.blob.core.windows.net/"
 
 cred = DefaultAzureCredential()
 
 blob_service_client = BlobServiceClient(
-    account_url=account_name,
+    account_url=account_url,
     credential=cred
 )
 
@@ -25,7 +25,7 @@ container_client = blob_service_client.get_container_client(
 
 if __name__ == "__main__":
     file_path = Path('data/raw')
-    upload_directory(file_path,container_client=container_client)
+  #  upload_directory(file_path,container_client=container_client)
     
     documents = extract_docs(container_client=container_client)
     chunks = chunk_docs(documents=documents)
