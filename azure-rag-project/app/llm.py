@@ -5,7 +5,6 @@ from openai import AzureOpenAI
 
 load_dotenv()
 
-
 def get_llm():
     return ChatOpenAI(
         model=os.getenv("AZURE_MODEL_NAME"),

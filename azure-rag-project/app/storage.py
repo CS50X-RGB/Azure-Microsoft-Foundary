@@ -25,10 +25,14 @@ container_client = blob_service_client.get_container_client(
 
 if __name__ == "__main__":
     file_path = Path('data/raw')
-  #  upload_directory(file_path,container_client=container_client)
+    # upload_directory(file_path,container_client=container_client)
     
     documents = extract_docs(container_client=container_client)
+    print("====EXTRACTION DONE======")
     chunks = chunk_docs(documents=documents)
+    print("===CHUNKING DONE====")
     embedded_chunks = generate_embedding(chunks=chunks)
+    print("EMBEDDING DONE")
     store_chunks(embedded_chunks)
+    print("STORED VECTOR")
     cred.close()    

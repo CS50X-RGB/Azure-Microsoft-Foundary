@@ -1,6 +1,18 @@
 from io import BytesIO
 from pypdf import PdfReader
 from azure.storage.blob import ContainerClient
+from pathlib import Path
+
+def debug_pdf(file_bytes: bytes):
+    Path("debug.pdf").write_bytes(file_bytes)
+
+    reader = PdfReader(BytesIO(file_bytes))
+
+    for i, page in enumerate(reader.pages):
+        print("Page:", i + 1)
+        print("Images:", len(page.images))
+        print("Resources:", page.get("/Resources"))
+
 
 def extract_docs(container_client : ContainerClient):
     extract_doc = []
@@ -17,21 +29,23 @@ def extract_docs(container_client : ContainerClient):
         file_bytes = blob_client.download_blob().readall()
         text = ""
         if blob.name.endswith(".pdf"):
+            # debug_pdf(file_bytes=file_bytes)
             text = extract_pdf(file_bytes=file_bytes)
         
 
         extract_doc.append({
-            "soruce" : blob.name,
+            "source" : blob.name,
             "text" : text       
         })
     return extract_doc
 
-def extract_pdf(file_bytes : bytes) -> str:
+def extract_pdf(file_bytes: bytes) -> str:
     reader = PdfReader(BytesIO(file_bytes))
-    
+
     text = ""
-    
-    for page in reader.pages:
-        text += (page.extract_text() or "") + "\n"
-    
+
+    for i, page in enumerate(reader.pages):
+        page_text = page.extract_text()
+        text += (page_text or "") + "\n"
+
     return text

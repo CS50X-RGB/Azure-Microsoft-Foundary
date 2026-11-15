@@ -13,6 +13,7 @@ from azure.search.documents.indexes.models import (
     VectorSearchProfile
 )
 from azure.search.documents import SearchClient
+from azure.search.documents.models import VectorizedQuery
 
 load_dotenv()
 
@@ -38,6 +39,10 @@ fields = [
         name="source",
         type=SearchFieldDataType.String,
         filterable=True
+    ),
+    SearchableField(
+        name="text",
+        type=SearchFieldDataType.String
     ),
     SearchField(
         name="embedding",
@@ -77,10 +82,32 @@ search_client = SearchClient(
     index_name=index_name,
     credential=cred
 )
+def store_chunks(chunks: list[dict]):
+    allowed_fields = {"id", "source", "text", "embedding"}
 
-def store_chunks(chunks : list[dict]):
-    result = search_client.upload_documents(
-        documents=chunks
+    for chunk in chunks:
+        extra_fields = set(chunk.keys()) - allowed_fields
+
+        if extra_fields:
+            raise ValueError(f"Unexpected fields: {extra_fields}")
+
+    result = search_client.upload_documents(documents=chunks)
+
+    for item in result:
+        print(item.key, item.succeeded, item.error_message)
+
+    return result
+
+def retrieve_chunks(query_embedding : list[float],top_k :int = 5):
+    vector_query = VectorizedQuery(
+        vector=query_embedding,
+        k_nearest_neighbors=top_k,
+        fields="embedding"
     )
     
-    return result
+    results = search_client.search(
+        search_text=None,
+        vector_queries=[vector_query],
+        select=["id","source","text"]
+    )
+    return list(results)
